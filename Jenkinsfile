@@ -27,13 +27,15 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                       sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/einfochips/Desktop/Key/MasterKeyChetan.pem **/target/*.war ec2-user@${params.tomcat_dev}:/home/ec2-user/"
+                        sh "chmod 777 /var/lib/tomcat/webapps/"
+                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/einfochips/Desktop/Key/MasterKeyChetan.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat/webapps/"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/einfochips/Desktop/Key/MasterKeyChetan.pem **/target/*.war ec2-user@${params.tomcat_prod}:/home/ec2-user/"
+                        sh "chmod 777 /var/lib/tomcat/webapps/"
+                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/einfochips/Desktop/Key/MasterKeyChetan.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat/webapps/"
                     }
                 }
             }
